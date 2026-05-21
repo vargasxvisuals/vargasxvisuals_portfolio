@@ -9,7 +9,6 @@ export default function About() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formType, setFormType] = useState('weddings');
   
-  // New states for form submission
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -21,16 +20,15 @@ export default function About() {
 
     emailjs
       .sendForm(
-        'service_jispdl9',    // <-- Replace this!
-        'template_30vz97h',   // <-- Replace this!
+        'service_jispdl9',    
+        'template_30vz97h',   
         form.current,
-        'YaSm_Z0pu5F96Mk6U'     // <-- Replace this!
+        'YaSm_Z0pu5F96Mk6U'     
       )
       .then(
         () => {
           setIsSubmitting(false);
           setSubmitStatus('success');
-          // Automatically close the form after 2 seconds
           setTimeout(() => {
             setIsFormOpen(false);
             setSubmitStatus(null);
@@ -72,113 +70,4 @@ export default function About() {
             <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-4">
               Hi, I'm David.
             </h1>
-            <div className="w-12 h-1 bg-stone-800 mb-8"></div>
-          </div>
-          
-          <div className="space-y-6 text-lg text-stone-600 leading-relaxed font-light">
-            <p>
-              I am a photographer based right here in the heart of California's Central Valley. For me, photography isn't just about perfectly posed subjects; it's about chasing the golden light, documenting real moments, and capturing the authentic aesthetic of the people and places around me.
-            </p>
-            <p>
-              Having spent time deep on the industry side of camera and technical gear, I know my way around the hardware—but my real passion is what happens in front of the lens. I approach every shoot with the goal of creating warm, timeless visuals that tell your unique story.
-            </p>
-            <p>
-              When I'm not behind the camera or editing a gallery, you can usually find me under the hood of a car doing some DIY wrenching, tracking down the best local spots in the Fresno area, or cheering on the Bulldogs.
-            </p>
-            <p className="pt-4 font-medium text-stone-800">
-              Let's create something great together.
-            </p>
-          </div>
-
-          <div>
-            <button 
-              onClick={() => setIsFormOpen(true)} 
-              className="inline-block bg-stone-800 text-stone-50 px-8 py-4 uppercase tracking-widest text-sm hover:bg-stone-700 transition-colors"
-            >
-              Get In Touch
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-500 ease-out ${isFormOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-        <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" onClick={() => !isSubmitting && setIsFormOpen(false)}></div>
-        
-        <div className={`bg-[#faf9f6] w-full max-w-2xl p-8 md:p-12 relative shadow-2xl overflow-y-auto max-h-[90vh] transition-all duration-500 ease-out transform ${isFormOpen ? 'translate-y-0 scale-100' : 'translate-y-8 scale-95'}`}>
-          <button 
-            onClick={() => !isSubmitting && setIsFormOpen(false)}
-            className="absolute top-6 right-6 text-stone-400 hover:text-stone-800 transition-colors text-2xl font-light"
-          >
-            ✕
-          </button>
-          
-          <div className="text-center mb-10 max-w-lg mx-auto">
-            <h2 className="text-4xl italic font-light tracking-tight mb-4">Get In Touch</h2>
-            <p className="text-stone-600 font-light leading-relaxed">
-              If you're interested in working with me, the best way to reach me is by filling out the inquiry form below. I can't wait to hear from you and document your story!
-            </p>
-          </div>
-
-          <div className="text-center mb-10">
-            <span className="block text-xs uppercase tracking-[0.2em] text-stone-400 mb-4">Select a Form</span>
-            <div className="flex justify-center space-x-12 font-light italic text-xl text-stone-400">
-              <button type="button" onClick={() => setFormType('weddings')} className={`transition-colors ${formType === 'weddings' ? 'text-stone-800' : 'hover:text-stone-600'}`}>weddings</button>
-              <button type="button" onClick={() => setFormType('portraits')} className={`transition-colors ${formType === 'portraits' ? 'text-stone-800' : 'hover:text-stone-600'}`}>portraits</button>
-            </div>
-          </div>
-          
-          <form ref={form} onSubmit={sendEmail} className="space-y-6">
-            {/* Hidden field to send the form type to EmailJS */}
-            <input type="hidden" name="form_type" value={formType} />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-              <div>
-                <input type="text" name="name" required placeholder="YOUR NAME (FIRST + LAST)" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
-              </div>
-              <div>
-                <input type="email" name="email" required placeholder="EMAIL ADDRESS" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
-              </div>
-
-              {formType === 'weddings' && (
-                <>
-                  <div><input type="text" name="wedding_date" placeholder="WEDDING DATE" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
-                  <div><input type="text" name="budget" placeholder="PHOTOGRAPHY BUDGET" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
-                  <div className="md:col-span-2"><input type="text" name="venue" placeholder="WEDDING VENUE" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
-                  <div className="md:col-span-2"><input type="text" name="planner" placeholder="WHO IS YOUR PLANNER?" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
-                </>
-              )}
-
-              {formType === 'portraits' && (
-                <>
-                  <div><input type="text" name="portrait_date" placeholder="REQUESTED DATE" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
-                  <div><input type="text" name="portrait_location" placeholder="REQUESTED LOCATION" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
-                </>
-              )}
-
-              <div className="md:col-span-2">
-                <input type="text" name="referral" placeholder="HOW DID YOU HEAR ABOUT ME?" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
-              </div>
-              <div className="md:col-span-2">
-                <textarea rows="3" name="message" required placeholder="TELL ME ALL THE DETAILS" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center resize-none"></textarea>
-              </div>
-            </div>
-
-            <div className="pt-8 flex flex-col items-center gap-4">
-              <button 
-                type="submit" 
-                disabled={isSubmitting}
-                className="bg-[#eeebe6] text-stone-600 px-16 py-5 uppercase tracking-[0.2em] text-xs hover:bg-stone-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? 'Sending...' : submitStatus === 'success' ? 'Sent!' : 'Submit Form'}
-              </button>
-              
-              {submitStatus === 'error' && (
-                <p className="text-red-500 text-xs tracking-widest uppercase">Oops! Something went wrong. Please try again.</p>
-              )}
-            </div>
-          </form>
-        </div>
-      </div>
-    </main>
-  );
-}
+            <div className="w-12 h-1
