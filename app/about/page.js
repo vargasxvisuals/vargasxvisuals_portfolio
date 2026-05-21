@@ -121,4 +121,33 @@ export default function About() {
             <span className="block text-xs uppercase tracking-[0.2em] text-stone-400 mb-4">Select a Form</span>
             <div className="flex justify-center space-x-12 font-light italic text-xl text-stone-400">
               <button type="button" onClick={() => setFormType('weddings')} className={`transition-colors ${formType === 'weddings' ? 'text-stone-800' : 'hover:text-stone-600'}`}>weddings</button>
-              <button type="button" onClick={() =>
+              <button type="button" onClick={() => setFormType('portraits')} className={`transition-colors ${formType === 'portraits' ? 'text-stone-800' : 'hover:text-stone-600'}`}>portraits</button>
+            </div>
+          </div>
+          
+          <form ref={form} onSubmit={sendEmail} className="space-y-6">
+            <input type="hidden" name="form_type" value={formType} />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+              <div>
+                <input type="text" name="name" required placeholder="YOUR NAME (FIRST + LAST) *" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+              </div>
+              <div>
+                <input type="email" name="email" required placeholder="EMAIL ADDRESS *" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+              </div>
+
+              {formType === 'weddings' && (
+                <>
+                  <div>
+                    <input type="text" name="wedding_date" required placeholder="WEDDING DATE *" 
+                      onFocus={(e) => (e.target.type = "date")}
+                      onBlur={(e) => (!e.target.value ? (e.target.type = "text") : null)}
+                      className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" 
+                    />
+                  </div>
+                  <div><input type="text" name="budget" required placeholder="PHOTOGRAPHY BUDGET *" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
+                  <div className="md:col-span-2">
+                    <input type="text" name="venue" required placeholder="WED
+                        </main>
+  );
+}
