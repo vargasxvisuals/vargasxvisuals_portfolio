@@ -108,3 +108,17 @@ export default function About() {
             className="absolute top-6 right-6 text-stone-400 hover:text-stone-800 transition-colors text-2xl font-light"
           >
             ✕
+          </button>
+          
+          <div className="text-center mb-10 max-w-lg mx-auto">
+            <h2 className="text-4xl italic font-light tracking-tight mb-4">Get In Touch</h2>
+            <p className="text-stone-600 font-light leading-relaxed">
+              If you're interested in working with me, the best way to reach me is by filling out the inquiry form below. I can't wait to hear from you and document your story!
+            </p>
+          </div>
+
+          <div className="text-center mb-10">
+            <span className="block text-xs uppercase tracking-[0.2em] text-stone-400 mb-4">Select a Form</span>
+            <div className="flex justify-center space-x-12 font-light italic text-xl text-stone-400">
+              <button type="button" onClick={() => setFormType('weddings')} className={`transition-colors ${formType === 'weddings' ? 'text-stone-800' : 'hover:text-stone-600'}`}>weddings</button>
+              <button type="button" onClick={() =>
