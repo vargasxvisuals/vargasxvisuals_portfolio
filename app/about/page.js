@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import { motion } from 'framer-motion';
 
 export default function About() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -55,7 +56,14 @@ export default function About() {
       </nav>
 
       <section className="max-w-7xl mx-auto px-8 py-12 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div className="relative aspect-[4/5] w-full bg-stone-200 overflow-hidden rounded-sm">
+        
+        {/* Animated Image Side */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative aspect-[4/5] w-full bg-stone-200 overflow-hidden rounded-sm"
+        >
           <Image 
             src="/images/david-portrait.jpg" 
             alt="David Vargas" 
@@ -63,9 +71,15 @@ export default function About() {
             className="object-cover"
             priority
           />
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col justify-center space-y-8">
+        {/* Animated Text Side with Staggered Delay */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col justify-center space-y-8"
+        >
           <div>
             <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-4">
               Hi, I'm David.
@@ -96,9 +110,10 @@ export default function About() {
               Get In Touch
             </button>
           </div>
-        </div>
+        </motion.div>
       </section>
 
+      {/* The Contact Modal (Remains Unchanged) */}
       <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-500 ease-out ${isFormOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
         <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" onClick={() => !isSubmitting && setIsFormOpen(false)}></div>
         
