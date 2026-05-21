@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export default function About() {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formType, setFormType] = useState('weddings'); // Defaults to weddings
 
   return (
     <main className="min-h-screen bg-[#faf9f6] text-stone-800 selection:bg-stone-300 selection:text-stone-900 relative">
@@ -83,7 +84,7 @@ export default function About() {
         
         {/* Modal Container */}
         <div 
-          className={`bg-[#faf9f6] w-full max-w-xl p-8 md:p-12 relative shadow-2xl transition-all duration-500 ease-out transform ${
+          className={`bg-[#faf9f6] w-full max-w-2xl p-8 md:p-12 relative shadow-2xl overflow-y-auto max-h-[90vh] transition-all duration-500 ease-out transform ${
             isFormOpen ? 'translate-y-0 scale-100' : 'translate-y-8 scale-95'
           }`}
         >
@@ -95,44 +96,91 @@ export default function About() {
             ✕
           </button>
           
-          <h2 className="text-3xl font-light tracking-tight mb-2">Let's Connect</h2>
-          <p className="text-stone-500 mb-8 font-light">Tell me a bit about what you're looking for.</p>
+          <div className="text-center mb-10 max-w-lg mx-auto">
+            <h2 className="text-4xl italic font-light tracking-tight mb-4">Get In Touch</h2>
+            <p className="text-stone-600 font-light leading-relaxed">
+              If you're interested in working with me, the best way to reach me is by filling out the inquiry form below. I can't wait to hear from you and document your story!
+            </p>
+          </div>
+
+          {/* Form Type Selector */}
+          <div className="text-center mb-10">
+            <span className="block text-xs uppercase tracking-[0.2em] text-stone-400 mb-4">Select a Form</span>
+            <div className="flex justify-center space-x-12 font-light italic text-xl text-stone-400">
+              <button
+                onClick={() => setFormType('weddings')}
+                className={`transition-colors ${formType === 'weddings' ? 'text-stone-800' : 'hover:text-stone-600'}`}
+              >
+                weddings
+              </button>
+              <button
+                onClick={() => setFormType('portraits')}
+                className={`transition-colors ${formType === 'portraits' ? 'text-stone-800' : 'hover:text-stone-600'}`}
+              >
+                portraits
+              </button>
+            </div>
+          </div>
           
           {/* The Form */}
           <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-            <div>
-              <label htmlFor="name" className="block text-xs uppercase tracking-widest text-stone-500 mb-2">Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                className="w-full bg-stone-200/50 border border-transparent p-4 focus:border-stone-400 focus:bg-[#faf9f6] outline-none transition-all" 
-                placeholder="Jane Doe" 
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+              
+              {/* Shared Top Fields */}
+              <div>
+                <input type="text" placeholder="YOUR NAME (FIRST + LAST)" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+              </div>
+              <div>
+                <input type="email" placeholder="EMAIL ADDRESS" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+              </div>
+
+              {/* Conditional Fields: Weddings */}
+              {formType === 'weddings' && (
+                <>
+                  <div>
+                    <input type="text" placeholder="WEDDING DATE" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+                  </div>
+                  <div>
+                    <input type="text" placeholder="PHOTOGRAPHY BUDGET" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <input type="text" placeholder="WEDDING VENUE" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <input type="text" placeholder="WHO IS YOUR PLANNER?" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+                  </div>
+                </>
+              )}
+
+              {/* Conditional Fields: Portraits */}
+              {formType === 'portraits' && (
+                <>
+                  <div>
+                    <input type="text" placeholder="REQUESTED DATE" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+                  </div>
+                  <div>
+                    <input type="text" placeholder="REQUESTED LOCATION" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+                  </div>
+                </>
+              )}
+
+              {/* Shared Bottom Fields */}
+              <div className="md:col-span-2">
+                <input type="text" placeholder="HOW DID YOU HEAR ABOUT ME?" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+              </div>
+              <div className="md:col-span-2">
+                <textarea rows="3" placeholder="TELL ME ALL THE DETAILS" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center resize-none"></textarea>
+              </div>
             </div>
-            <div>
-              <label htmlFor="email" className="block text-xs uppercase tracking-widest text-stone-500 mb-2">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                className="w-full bg-stone-200/50 border border-transparent p-4 focus:border-stone-400 focus:bg-[#faf9f6] outline-none transition-all" 
-                placeholder="jane@example.com" 
-              />
+
+            <div className="pt-8 flex justify-center">
+              <button 
+                type="submit" 
+                className="bg-[#eeebe6] text-stone-600 px-16 py-5 uppercase tracking-[0.2em] text-xs hover:bg-stone-200 transition-colors"
+              >
+                Submit Form
+              </button>
             </div>
-            <div>
-              <label htmlFor="message" className="block text-xs uppercase tracking-widest text-stone-500 mb-2">Message</label>
-              <textarea 
-                id="message" 
-                rows="4" 
-                className="w-full bg-stone-200/50 border border-transparent p-4 focus:border-stone-400 focus:bg-[#faf9f6] outline-none transition-all resize-none" 
-                placeholder="Details about your shoot..."
-              ></textarea>
-            </div>
-            <button 
-              type="submit" 
-              className="w-full bg-stone-800 text-stone-50 py-4 uppercase tracking-widest text-sm hover:bg-stone-700 transition-colors"
-            >
-              Send Message
-            </button>
           </form>
         </div>
       </div>
