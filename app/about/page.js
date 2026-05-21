@@ -147,7 +147,49 @@ export default function About() {
                   </div>
                   <div><input type="text" name="budget" required placeholder="PHOTOGRAPHY BUDGET *" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
                   <div className="md:col-span-2">
-                    <input type="text" name="venue" required placeholder="WED
-                        </main>
+                    <input type="text" name="venue" required placeholder="WEDDING VENUE *" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+                  </div>
+                  <div className="md:col-span-2"><input type="text" name="planner" placeholder="WHO IS YOUR PLANNER?" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
+                </>
+              )}
+
+              {formType === 'portraits' && (
+                <>
+                  <div>
+                    <input type="text" name="portrait_date" required placeholder="REQUESTED DATE *" 
+                      onFocus={(e) => (e.target.type = "date")}
+                      onBlur={(e) => (!e.target.value ? (e.target.type = "text") : null)}
+                      className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" 
+                    />
+                  </div>
+                  <div><input type="text" name="portrait_location" required placeholder="REQUESTED LOCATION *" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" /></div>
+                </>
+              )}
+
+              <div className="md:col-span-2">
+                <input type="text" name="referral" required placeholder="HOW DID YOU HEAR ABOUT ME? *" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center" />
+              </div>
+              <div className="md:col-span-2">
+                <textarea rows="3" name="message" required placeholder="TELL ME ALL THE DETAILS *" className="w-full bg-transparent border-b border-stone-300 py-3 text-xs uppercase tracking-widest focus:border-stone-800 outline-none transition-colors placeholder:text-stone-400 text-center resize-none"></textarea>
+              </div>
+            </div>
+
+            <div className="pt-8 flex flex-col items-center gap-4">
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="bg-[#eeebe6] text-stone-600 px-16 py-5 uppercase tracking-[0.2em] text-xs hover:bg-stone-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? 'Sending...' : submitStatus === 'success' ? 'Sent!' : 'Submit Form'}
+              </button>
+              
+              {submitStatus === 'error' && (
+                <p className="text-red-500 text-xs tracking-widest uppercase">Oops! Something went wrong. Please try again.</p>
+              )}
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
   );
 }
